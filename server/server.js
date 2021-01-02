@@ -4,7 +4,8 @@ var cors = require('cors')
 
 
 const app = express()
-mongoose.connect('mongodb://localhost:27017/blog',{NewUrlParser:true,useFindAndModify:false})
+const url= `mongodb+srv://InYuusha:qwertyasdzx1234@cluster0.jsh9b.mongodb.net/portfolio_data`
+mongoose.connect(url,{useNewUrlParser:true,useFindAndModify:false})
 mongoose.connection.on('connected',()=>{
     console.log("Server is connected to databse")
 })
@@ -33,12 +34,12 @@ app.post('/api/post/new',(req,res)=>{
       content:req.body.content,
       liked:0,
       author:req.body.author,
-      timestamp:new Date().getTime()
+      timestamp:new Date().toDateString()
   }
   let newPost = new PostModel(payload)
   newPost.save((err,result)=>{
       if(err) res.send({success:false,msg:result});
-      res.redirect('http://127.0.0.1:8082')
+      res.redirect('http://127.0.0.1:8080')
   })
 })
 app.get('/api/posts/all',(req,res)=>{
@@ -49,11 +50,11 @@ app.get('/api/posts/all',(req,res)=>{
     })
 })
 app.post('/api/post/update/',(req,res)=>{
-   
-    PostModel.updateOne({_id:req.body.id},{title:req.body.title,author:req.body.author,content:req.body.content},(err,result)=>{
-        if(err) res.send({success:false,msg:err});
-        res.redirect('http://127.0.0.1:8082')
 
+    PostModel.updateOne({_id:req.body.id},
+        {title:req.body.title,author:req.body.author,content:req.body.content},(err,result)=>{
+        if(err) res.send({success:false,msg:err});
+        res.redirect('http://127.0.0.1:8080')
     })
 })
 app.post('/api/post/remove/:id',(req,res)=>{
@@ -61,8 +62,6 @@ app.post('/api/post/remove/:id',(req,res)=>{
     PostModel.findOneAndDelete({_id:req.params.id},(err,result)=>{
         if(err) res.send({success:false,msg:err});
         console.log(`The post with the title ${result.title} has been deleted`)
-
-
     })
 })
 app.get('/api/post/view/:id',(req,res)=>{

@@ -11,14 +11,18 @@
               <v-card-subtitle>No Post have been published</v-card-subtitle>
 
           </v-card>
+          </v-img>
+
 
 
             <v-card fluid  dark class="grey darken-3  mb-2" v-for="(post,key) in posts" :key="key">
 
 
                   <v-card-title style="cursor:pointer" @click="viewPost(post._id)" class="mb-4">{{post.title}}</v-card-title>
+                  <v-card-subtitle class="font-weight-bold">{{post.timestamp}}</v-card-subtitle>
 
-                  <v-card-subtitle>{{post.content}}</v-card-subtitle>
+                  <v-card-text>{{post.content}}</v-card-text>
+                    <v-card-subtitle> - {{post.author}}</v-card-subtitle>
 
               <v-card-actions><v-btn icon @click="deletePost(post._id)"><v-icon color="red lighten-1">mdi-delete</v-icon></v-btn>
               <v-btn icon @click="liked(post)"><v-icon :color="post.liked==1?'red':'grey'">mdi-heart</v-icon></v-btn>
@@ -40,7 +44,7 @@
          <v-card>
           <v-sheet dark class="grey darken-4"> <v-card-title >Edit Post</v-card-title></v-sheet>
           <v-card-text>
-              <form action="http://127.0.0.1:3000/api/post/update" method="post">
+              <form action="https://blog975.herokuapp.com/api/post/update" method="post">
 
                    <v-text-field label="id" name="id" :value="id"></v-text-field>
                    <v-text-field label="Title" value name="title" :value="title"></v-text-field>
@@ -82,24 +86,22 @@ export default{
 
     methods:{
         viewPost(id){
-            axios.get(`http://127.0.0.1:3000/api/post/view/${id}`)
+            axios.get(`https://blog975.herokuapp.com/api/post/view/${id}`)
             .then(data=>{this.data=data.data;this.postDialog=true;})
 
         },
         deletePost(id){
-            axios.post(`http://127.0.0.1:3000/api/post/remove/${id}`).then(window.location.reload())
+            axios.post(`https://blog975.herokuapp.com/api/post/remove/${id}`).then(window.location.reload())
 
         },
         liked(post){
             if(post.liked==0){
-                    axios.post(`http://127.0.0.1:3000/api/post/like/`,{boo:1,id:post._id})
+                    axios.post(`https://blog975.herokuapp.com/api/post/like/`,{boo:1,id:post._id})
                     .then(window.location.reload())
             }
-            else { axios.post(`http://127.0.0.1:3000/api/post/like/`,{boo:0,id:post._id})
+            else { axios.post(`https://blog975.herokuapp.com/api/post/like/`,{boo:0,id:post._id})
                    .then(window.location.reload())
-
             }
-
         },
         editBlog(post){
             this.editDialog=true;
@@ -107,8 +109,6 @@ export default{
             this.content=post.content;
             this.title=post.title;
             this.author=post.author;
-
-
         }
 
     },

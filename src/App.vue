@@ -55,7 +55,7 @@ export default {
   },
   mounted(){
 
-      axios.get("http://127.0.0.1:3000/api/posts/all")
+      axios.get("https://blog975.herokuapp.com/api/posts/all")
       .then(data=>{this.posts=data.data.result})
        .catch(err=>console.log(err))
   },
