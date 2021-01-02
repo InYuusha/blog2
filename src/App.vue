@@ -11,7 +11,7 @@
         <v-card>
           <v-sheet dark class="grey darken-4"> <v-card-title >New Post</v-card-title></v-sheet>
           <v-card-text>
-            <form action="http://127.0.0.1:3000/api/post/new" method="post" >
+            <form action="https://blog975.herokuapp.com/api/post/new" method="post" >
             <v-text-field label="Title" name="title"></v-text-field>
 
             <v-textarea label="Content" name="content"></v-textarea>
