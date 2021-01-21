@@ -1,4 +1,6 @@
 # blog2
+# A admin version of CRUD node application
+
 
 ## Project setup
 ```
