@@ -4,7 +4,7 @@ var cors = require('cors')
 
 
 const app = express()
-const url= `mongodb+srv://InYuusha:qwertyasdzx1234@cluster0.jsh9b.mongodb.net/portfolio_data`
+const url= `mongodb+srv://InYuusha:pass@cluster0.jsh9b.mongodb.net/portfolio_data`
 mongoose.connect(url,{useNewUrlParser:true,useFindAndModify:false})
 mongoose.connection.on('connected',()=>{
     console.log("Server is connected to databse")
